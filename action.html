@@ -1,0 +1,503 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>动作 Action - Walle-Mk.Q 使用手册</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="Introduction.html">简介</a></li><li class="chapter-item expanded affix "><li class="part-title">指南</li><li class="chapter-item expanded "><a href="start.html"><strong aria-hidden="true">1.</strong> 开始使用</a></li><li class="chapter-item expanded affix "><li class="part-title">接口</li><li class="chapter-item expanded "><a href="message.html"><strong aria-hidden="true">2.</strong> 消息 Message</a></li><li class="chapter-item expanded "><a href="event.html"><strong aria-hidden="true">3.</strong> 事件 Event</a></li><li class="chapter-item expanded "><a href="action.html" class="active"><strong aria-hidden="true">4.</strong> 动作 Action</a></li><li class="chapter-item expanded "><a href="v11.html"><strong aria-hidden="true">5.</strong> OneBot V11</a></li><li class="chapter-item expanded affix "><li class="part-title">其他</li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> 常见问题</div></li><li class="chapter-item expanded "><a href="changelog.html"><strong aria-hidden="true">7.</strong> 更新日志</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> 鸣谢</div></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Walle-Mk.Q 使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="动作-action"><a class="header" href="#动作-action">动作 Action</a></h1>
+<h2 id="元动作"><a class="header" href="#元动作">元动作</a></h2>
+<h3 id="获取近期事件-get_latest_events"><a class="header" href="#获取近期事件-get_latest_events">获取近期事件 get_latest_events</a></h3>
+<p>动作请求：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>limit</td><td>i64</td><td>获取的事件数量上限，0 使用默认值 10</td></tr>
+<tr><td>timeout</td><td>i64</td><td>没有事件时要等待的秒数，0 表示使用短轮询，不等待</td></tr>
+</tbody></table>
+</div>
+<p>动作响应为 Vec&lt;Event&gt; </p>
+<h3 id="获取支持的动作列表-get_supported_actions"><a class="header" href="#获取支持的动作列表-get_supported_actions">获取支持的动作列表 get_supported_actions</a></h3>
+<p>无动作请求数据</p>
+<p>动作响应为 Vec&lt;String&gt; </p>
+<h3 id="获取运行状态-get_status"><a class="header" href="#获取运行状态-get_status">获取运行状态 get_status</a></h3>
+<p>无动作请求数据</p>
+<p>动作响应：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>good</td><td>bool</td><td>是否各项状态都符合预期，OneBot 实现各模块均正常</td></tr>
+<tr><td>online</td><td>bool</td><td>是否在线</td></tr>
+</tbody></table>
+</div>
+<h3 id="获取版本信息-get_version"><a class="header" href="#获取版本信息-get_version">获取版本信息 get_version</a></h3>
+<p>无动作请求数据</p>
+<p>动作响应：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>impl</td><td>String</td><td><code>Walle-Q</code></td></tr>
+<tr><td>platform</td><td>String</td><td><code>qq</code></td></tr>
+<tr><td>version</td><td>String</td><td>Walle-Q 版本号</td></tr>
+<tr><td>onebot_version</td><td>String</td><td><code>12</code></td></tr>
+</tbody></table>
+</div>
+<h2 id="消息动作"><a class="header" href="#消息动作">消息动作</a></h2>
+<h3 id="发送消息-send_message"><a class="header" href="#发送消息-send_message">发送消息 send_message</a></h3>
+<p>动作请求：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>detail_type</td><td>String</td><td>private | group | group_temp</td></tr>
+<tr><td>group_id</td><td>Option&lt;String&gt;</td><td>群 ID</td></tr>
+<tr><td>user_id</td><td>Option&lt;String&gt;</td><td>用户 ID</td></tr>
+<tr><td>message</td><td>Message</td><td>消息内容</td></tr>
+</tbody></table>
+</div>
+<p>动作响应：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>message_id</td><td>String</td><td>消息 ID</td></tr>
+<tr><td>time</td><td>f64</td><td>时间戳，单位：秒</td></tr>
+</tbody></table>
+</div>
+<h3 id="删除消息-delete_message"><a class="header" href="#删除消息-delete_message">删除消息 delete_message</a></h3>
+<p>动作请求：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>message_id</td><td>String</td><td>消息 ID</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="获取消息-get_message"><a class="header" href="#获取消息-get_message">获取消息 get_message</a></h3>
+<blockquote>
+<p>此动作为扩展动作</p>
+</blockquote>
+<p>动作请求：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>message_id</td><td>String</td><td>消息 ID</td></tr>
+</tbody></table>
+</div>
+<p>响应数据:</p>
+<p>同消息事件 MessageEvent</p>
+<h2 id="单用户动作"><a class="header" href="#单用户动作">单用户动作</a></h2>
+<h3 id="获取机器人自身信息-get_self_info"><a class="header" href="#获取机器人自身信息-get_self_info">获取机器人自身信息 get_self_info</a></h3>
+<p>无动作请求数据</p>
+<p>动作响应：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>机器人用户 ID</td></tr>
+<tr><td>nickname</td><td>String</td><td>机器人名称/昵称</td></tr>
+</tbody></table>
+</div>
+<h3 id="获取用户信息-get_user_info"><a class="header" href="#获取用户信息-get_user_info">获取用户信息 get_user_info</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+</tbody></table>
+</div>
+<p>动作响应：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+<tr><td>nickname</td><td>String</td><td>名称/昵称</td></tr>
+</tbody></table>
+</div>
+<h3 id="获取好友列表-get_friend_list"><a class="header" href="#获取好友列表-get_friend_list">获取好友列表 get_friend_list</a></h3>
+<p>无动作请求数据</p>
+<p>好友信息列表，每一个元素的字段同 <code>get_user_info</code> 的响应数据。</p>
+<h3 id="处理好友请求-set_new_friend"><a class="header" href="#处理好友请求-set_new_friend">处理好友请求 set_new_friend</a></h3>
+<blockquote>
+<p>此动作为扩展动作</p>
+</blockquote>
+<p>动作请求：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+<tr><td>request_id</td><td>i64</td><td>请求 ID</td></tr>
+<tr><td>accept</td><td>bool</td><td>是否接受请求</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="删除好友-delete_friend"><a class="header" href="#删除好友-delete_friend">删除好友 delete_friend</a></h3>
+<blockquote>
+<p>此动作为扩展动作</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p><strong>注意</strong>：如果目标用户不是好友，不会返回错误信息</p>
+</blockquote>
+<p>无动作响应数据</p>
+<h3 id="获取好友请求列表-get_new_friend_requests"><a class="header" href="#获取好友请求列表-get_new_friend_requests">获取好友请求列表 get_new_friend_requests</a></h3>
+<blockquote>
+<p>此动作为扩展动作</p>
+</blockquote>
+<p>无动作请求数据</p>
+<p>动作响应为 Vec&lt;event.request.new_friend&gt;</p>
+<h2 id="单级群组动作"><a class="header" href="#单级群组动作">单级群组动作</a></h2>
+<h3 id="获取群信息-get_group_info"><a class="header" href="#获取群信息-get_group_info">获取群信息 get_group_info</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+</tbody></table>
+</div>
+<p>动作响应：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段名</th><th>数据类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>group_name</td><td>String</td><td>群名称</td></tr>
+</tbody></table>
+</div>
+<h3 id="获取群列表-get_group_list"><a class="header" href="#获取群列表-get_group_list">获取群列表 get_group_list</a></h3>
+<p>无动作请求数据</p>
+<p>群信息列表，每一个元素的字段同 <code>get_group_info</code> 的响应数据。</p>
+<h3 id="获取群成员信息-get_group_member_info"><a class="header" href="#获取群成员信息-get_group_member_info">获取群成员信息 get_group_member_info</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+</tbody></table>
+</div>
+<p>动作响应：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段名</th><th>数据类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+<tr><td>nickname</td><td>String</td><td>用户名称/昵称</td></tr>
+</tbody></table>
+</div>
+<h3 id="获取群成员列表-get_group_member_list"><a class="header" href="#获取群成员列表-get_group_member_list">获取群成员列表 get_group_member_list</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+</tbody></table>
+</div>
+<p>群信息列表，每一个元素的字段同 <code>get_group_member_info</code> 的响应数据。</p>
+<h3 id="设置群名称-set_group_name"><a class="header" href="#设置群名称-set_group_name">设置群名称 set_group_name</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>group_name</td><td>String</td><td>群名称</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="退出群-leave_group"><a class="header" href="#退出群-leave_group">退出群 leave_group</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="踢出群成员-kick_group_member"><a class="header" href="#踢出群成员-kick_group_member">踢出群成员 kick_group_member</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="禁言群成员-ban_group_member"><a class="header" href="#禁言群成员-ban_group_member">禁言群成员 ban_group_member</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+<tr><td>duration</td><td>i64</td><td>时长，单位：秒</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="解禁群成员-unban_group_member"><a class="header" href="#解禁群成员-unban_group_member">解禁群成员 unban_group_member</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="设置群管理员-set_group_admin"><a class="header" href="#设置群管理员-set_group_admin">设置群管理员 set_group_admin</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="取消群管理员-unset_group_admin"><a class="header" href="#取消群管理员-unset_group_admin">取消群管理员 unset_group_admin</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="处理加群请求-set_join_group"><a class="header" href="#处理加群请求-set_join_group">处理加群请求 set_join_group</a></h3>
+<blockquote>
+<p>此动作为扩展动作</p>
+</blockquote>
+<p>动作请求：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>request_id</td><td>i64</td><td>请求 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>accept</td><td>bool</td><td>是否接受</td></tr>
+<tr><td>block</td><td>Option&lt;bool&gt;</td><td>是否禁止再次申请</td></tr>
+<tr><td>message</td><td>Option&lt;String&gt;</td><td>拒绝理由</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="获取加群申请-get_join_group_requests"><a class="header" href="#获取加群申请-get_join_group_requests">获取加群申请 get_join_group_requests</a></h3>
+<blockquote>
+<p>此动作为扩展动作</p>
+</blockquote>
+<p>无动作请求数据</p>
+<p>动作响应为 Vec&lt;event.request.join_group&gt;</p>
+<h3 id="处理群邀请-set_group_invited"><a class="header" href="#处理群邀请-set_group_invited">处理群邀请 set_group_invited</a></h3>
+<blockquote>
+<p>此动作为扩展动作</p>
+</blockquote>
+<p>动作请求：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>request_id</td><td>i64</td><td>请求 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>accept</td><td>bool</td><td>是否接受</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="获取群邀请-get_group_inviteds"><a class="header" href="#获取群邀请-get_group_inviteds">获取群邀请 get_group_inviteds</a></h3>
+<blockquote>
+<p>此动作为扩展动作</p>
+</blockquote>
+<p>无动作请求数据</p>
+<p>动作响应为 Vec&lt;event.request.group_invited&gt;</p>
+<h2 id="文件动作"><a class="header" href="#文件动作">文件动作</a></h2>
+<h3 id="上传文件-upload_file"><a class="header" href="#上传文件-upload_file">上传文件 upload_file</a></h3>
+<p>动作请求：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>type</td><td>String</td><td>上传方式：url | path | data</td></tr>
+<tr><td>name</td><td>String</td><td>文件名称</td></tr>
+<tr><td>url</td><td>Option&lt;String&gt;</td><td>上传方式为 url 时需要提供的 url</td></tr>
+<tr><td>data</td><td>Option&lt;Map&lt;String, String&gt;&gt;</td><td>url 可选 headers</td></tr>
+<tr><td>path</td><td>Option&lt;String&gt;</td><td>上传方式为 path 时需要提供的路径</td></tr>
+<tr><td>data</td><td>Option&lt;String&gt;</td><td>上传方式为 data 时需要提供的数据</td></tr>
+<tr><td>sha256</td><td>Option&lt;String&gt;</td><td>文件的 sha256 值</td></tr>
+<tr><td>file_type</td><td>Option&lt;String&gt;</td><td>文件类型，缺省值为 image</td></tr>
+</tbody></table>
+</div>
+<p>动作响应：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>file_id</td><td>String</td><td>文件 ID</td></tr>
+</tbody></table>
+</div>
+<h3 id="获取文件-get_file"><a class="header" href="#获取文件-get_file">获取文件 get_file</a></h3>
+<p>动作请求：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>file_id</td><td>String</td><td>文件 ID</td></tr>
+<tr><td>type</td><td>String</td><td>上传方式：url | path | data</td></tr>
+<tr><td>file_type</td><td>Option&lt;String&gt;</td><td>文件类型，缺省值为 image</td></tr>
+</tbody></table>
+</div>
+<p>动作响应：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>type</td><td>String</td><td>上传方式：url | path | data</td></tr>
+<tr><td>name</td><td>String</td><td>文件名称</td></tr>
+<tr><td>url</td><td>Option&lt;String&gt;</td><td>上传方式为 url 时需要提供的 url</td></tr>
+<tr><td>data</td><td>Option&lt;Map&lt;String, String&gt;&gt;</td><td>url 可选 headers</td></tr>
+<tr><td>path</td><td>Option&lt;String&gt;</td><td>上传方式为 path 时需要提供的路径</td></tr>
+<tr><td>data</td><td>Option&lt;String&gt;</td><td>上传方式为 data 时需要提供的数据</td></tr>
+<tr><td>sha256</td><td>Option&lt;String&gt;</td><td>文件的 sha256 值</td></tr>
+</tbody></table>
+</div>
+<h3 id="分片上传文件-upload_file_fragmented"><a class="header" href="#分片上传文件-upload_file_fragmented">分片上传文件 upload_file_fragmented</a></h3>
+<blockquote>
+<p>累了，看 Onebot12 文档吧，一样的 ╯︿╰</p>
+</blockquote>
+<h3 id="分片获取文件-get_file_fragmented"><a class="header" href="#分片获取文件-get_file_fragmented">分片获取文件 get_file_fragmented</a></h3>
+<blockquote>
+<p>累了，看 Onebot12 文档吧，一样的 ╯︿╰</p>
+</blockquote>
+<h1 id="错误代码-error-code"><a class="header" href="#错误代码-error-code">错误代码 Error Code</a></h1>
+<div class="table-wrapper"><table><thead><tr><th>Code</th><th>名称</th><th>说明</th><th>备注</th></tr></thead><tbody>
+<tr><td>10001</td><td>Bad Request</td><td>无效的动作请求</td><td>格式错误等</td></tr>
+<tr><td>10002</td><td>Unsupported Action</td><td>不支持的动作请求</td><td>不支持的动作</td></tr>
+<tr><td>10003</td><td>Bad Param</td><td>无效的请求参数</td><td>参数缺失或参数类型错误</td></tr>
+<tr><td>10004</td><td>Unsupported Param</td><td>不支持的请求参数</td><td>请求参数未实现</td></tr>
+<tr><td>10005</td><td>Unsupported Segment</td><td>不支持的消息段类型</td><td>消息段类型未实现</td></tr>
+<tr><td>10006</td><td>Bad Segment Data</td><td>无效的消息段数据</td><td>消息段数据格式错误</td></tr>
+<tr><td>10007</td><td>Unsupported Segment Data</td><td>不支持的消息段参数</td><td>消息段参数未实现</td></tr>
+<tr><td>20001</td><td>Bad Handler</td><td>动作处理器实现错误</td><td>没有正确设置响应状态等</td></tr>
+<tr><td>20002</td><td>Internal Handler Error</td><td>动作处理器运行时异常</td><td>未捕获的意料之外的异常</td></tr>
+<tr><td>20003</td><td>Prepare File Error</td><td>分片上传文件未prepare</td><td>分片上传文件未prepare</td></tr>
+<tr><td>20004</td><td>File Size Error</td><td>分片上传文件大小错误</td><td>文件大小与预先约定不匹配</td></tr>
+<tr><td>20005</td><td>File Sha256 Error</td><td>分片上传文件哈希错误</td><td>Sha256值与预先约定不匹配</td></tr>
+<tr><td>32001</td><td>File Open Error</td><td>文件打开失败</td><td>文件打开失败</td></tr>
+<tr><td>32002</td><td>File Read Error</td><td>文件读取失败</td><td>文件读取失败</td></tr>
+<tr><td>32003</td><td>File Create Error</td><td>文件创建失败</td><td>文件创建失败</td></tr>
+<tr><td>32004</td><td>File Write Error</td><td>文件写入失败</td><td>文件写入失败</td></tr>
+<tr><td>32005</td><td>File Not Found Error</td><td>文件不存在</td><td>文件不存在</td></tr>
+<tr><td>33001</td><td>Net Download Error</td><td>网络下载错误</td><td>网络下载错误</td></tr>
+<tr><td>34001</td><td>Ricq Error</td><td>ricq 未处理报错</td><td>ricq 报错</td></tr>
+<tr><td>35001</td><td>Message Not Exist</td><td>消息不存在</td><td>消息不存在</td></tr>
+<tr><td>35002</td><td>Friend Not Exist</td><td>好友不存在</td><td>好友不存在</td></tr>
+<tr><td>35003</td><td>Group Not Exist</td><td>群不存在</td><td>群不存在</td></tr>
+<tr><td>35004</td><td>Group Member Not Exist</td><td>群成员不存在</td><td>群成员不存在</td></tr>
+<tr><td>35005</td><td>Permission Denied</td><td>权限不足</td><td>不是群管理员等</td></tr>
+<tr><td>61001</td><td>ImageInfo Decode Error</td><td>图片信息解码错误</td><td>图片信息解码错误</td></tr>
+<tr><td>61002</td><td>Image Url Error</td><td>图片URL错误</td><td>图片URL不存在或解析错误</td></tr>
+<tr><td>61003</td><td>Image Path Error</td><td>图片路径错误</td><td>图片路径不存在或解析错误</td></tr>
+<tr><td>61004</td><td>Image Data Error</td><td>图片内容错误</td><td>图片文件下载或读取失败</td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="event.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="v11.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="event.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="v11.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

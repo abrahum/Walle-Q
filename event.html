@@ -1,0 +1,340 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>事件 Event - Walle-Mk.Q 使用手册</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="Introduction.html">简介</a></li><li class="chapter-item expanded affix "><li class="part-title">指南</li><li class="chapter-item expanded "><a href="start.html"><strong aria-hidden="true">1.</strong> 开始使用</a></li><li class="chapter-item expanded affix "><li class="part-title">接口</li><li class="chapter-item expanded "><a href="message.html"><strong aria-hidden="true">2.</strong> 消息 Message</a></li><li class="chapter-item expanded "><a href="event.html" class="active"><strong aria-hidden="true">3.</strong> 事件 Event</a></li><li class="chapter-item expanded "><a href="action.html"><strong aria-hidden="true">4.</strong> 动作 Action</a></li><li class="chapter-item expanded "><a href="v11.html"><strong aria-hidden="true">5.</strong> OneBot V11</a></li><li class="chapter-item expanded affix "><li class="part-title">其他</li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> 常见问题</div></li><li class="chapter-item expanded "><a href="changelog.html"><strong aria-hidden="true">7.</strong> 更新日志</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> 鸣谢</div></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Walle-Mk.Q 使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="事件-event"><a class="header" href="#事件-event">事件 Event</a></h1>
+<p>所有事件共有字段</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>id</td><td>String</td><td>事件 ID</td></tr>
+<tr><td>impl</td><td>String</td><td>实现名，即 <code>Walle-Q</code></td></tr>
+<tr><td>platform</td><td>String</td><td>平台名，即 <code>qq</code></td></tr>
+<tr><td>self_id</td><td>String</td><td>Bot ID</td></tr>
+<tr><td>time</td><td>f64</td><td>事件戳，单位：秒</td></tr>
+</tbody></table>
+</div>
+<h2 id="消息事件-message"><a class="header" href="#消息事件-message">消息事件 message</a></h2>
+<h3 id="标准单用户消息事件-messageprivate"><a class="header" href="#标准单用户消息事件-messageprivate">[标准]单用户消息事件 message.private</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>message_id</td><td>String</td><td>消息 ID</td></tr>
+<tr><td>message</td><td>Message</td><td>消息对象</td></tr>
+<tr><td>alt_message</td><td>String</td><td>消息文本</td></tr>
+<tr><td>user_id</td><td>String</td><td>发送者 ID</td></tr>
+<tr><td>user_name</td><td>String</td><td>发送者 nickname</td></tr>
+</tbody></table>
+</div>
+<h3 id="扩展群临时消息-messagegroup_temp"><a class="header" href="#扩展群临时消息-messagegroup_temp">[扩展]群临时消息 message.group_temp</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>message_id</td><td>String</td><td>消息 ID</td></tr>
+<tr><td>message</td><td>Message</td><td>消息对象</td></tr>
+<tr><td>alt_message</td><td>String</td><td>消息文本</td></tr>
+<tr><td>user_id</td><td>String</td><td>发送者 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>user_name</td><td>String</td><td>发送者 nickname</td></tr>
+</tbody></table>
+</div>
+<h3 id="标准群用户消息事件-messagegroup"><a class="header" href="#标准群用户消息事件-messagegroup">[标准]群用户消息事件 message.group</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>message_id</td><td>String</td><td>消息 ID</td></tr>
+<tr><td>message</td><td>Message</td><td>消息对象</td></tr>
+<tr><td>alt_message</td><td>String</td><td>消息文本</td></tr>
+<tr><td>user_id</td><td>String</td><td>发送者 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td><em>user_card</em></td><td>String</td><td>发送者名片</td></tr>
+<tr><td><em>group_name</em></td><td>String</td><td>群名称</td></tr>
+</tbody></table>
+</div>
+<h2 id="通知事件-notice"><a class="header" href="#通知事件-notice">通知事件 notice</a></h2>
+<h3 id="标准好友消息撤回-noticeprivate_message_delete"><a class="header" href="#标准好友消息撤回-noticeprivate_message_delete">[标准]好友消息撤回 notice.private_message_delete</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>message_id</td><td>String</td><td>消息 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>发送者 ID</td></tr>
+</tbody></table>
+</div>
+<h3 id="标准好友增加-noticefriend_increase"><a class="header" href="#标准好友增加-noticefriend_increase">[标准]好友增加 notice.friend_increase</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>好友 ID</td></tr>
+<tr><td><em>user_name</em></td><td>String</td><td>好友昵称</td></tr>
+</tbody></table>
+</div>
+<h3 id="标准好友减少-noticefriend_decrease"><a class="header" href="#标准好友减少-noticefriend_decrease">[标准]好友减少 notice.friend_decrease</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>好友 ID</td></tr>
+</tbody></table>
+</div>
+<h3 id="扩展好友戳一戳-noticefriend_poke"><a class="header" href="#扩展好友戳一戳-noticefriend_poke">[扩展]好友戳一戳 notice.friend_poke</a></h3>
+<blockquote>
+<p>此事件为扩展事件</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>发送者 ID</td></tr>
+<tr><td>receiver_id</td><td>String</td><td>接收者 ID</td></tr>
+</tbody></table>
+</div>
+<h3 id="标准群成员增加-noticegroup_member_increase"><a class="header" href="#标准群成员增加-noticegroup_member_increase">[标准]群成员增加 notice.group_member_increase</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>sub_type</td><td>String</td><td>加群类型</td></tr>
+<tr><td>user_id</td><td>String</td><td>成员 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>operator_id</td><td>String</td><td>操作者 ID (暂缺)</td></tr>
+</tbody></table>
+</div>
+<h3 id="标准群成员减少-noticegroup_member_decrease"><a class="header" href="#标准群成员减少-noticegroup_member_decrease">[标准]群成员减少 notice.group_member_decrease</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>sub_type</td><td>String</td><td>退群类型 leave | kick | disband</td></tr>
+<tr><td>user_id</td><td>String</td><td>成员 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>operator_id</td><td>String</td><td>操作者 ID</td></tr>
+</tbody></table>
+</div>
+<h3 id="标准群成员禁言-noticegroup_member_ban"><a class="header" href="#标准群成员禁言-noticegroup_member_ban">[标准]群成员禁言 notice.group_member_ban</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>成员 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>operator_id</td><td>String</td><td>操作者 ID</td></tr>
+<tr><td><em>duration</em></td><td>i64</td><td>禁言时长，单位：秒</td></tr>
+</tbody></table>
+</div>
+<h3 id="标准群消息撤回-noticegroup_message_delete"><a class="header" href="#标准群消息撤回-noticegroup_message_delete">[标准]群消息撤回 notice.group_message_delete</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>sub_type</td><td>String</td><td>撤回类型 recall 或 delete</td></tr>
+<tr><td>message_id</td><td>String</td><td>消息 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>成员 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>operator_id</td><td>String</td><td>操作者 ID</td></tr>
+</tbody></table>
+</div>
+<h3 id="标准群管理员设置-noticegroup_admin_set"><a class="header" href="#标准群管理员设置-noticegroup_admin_set">[标准]群管理员设置 notice.group_admin_set</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>成员 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>operator_id</td><td>String</td><td>操作者 ID</td></tr>
+</tbody></table>
+</div>
+<h3 id="标准群管理员取消-noticegroup_admin_unset"><a class="header" href="#标准群管理员取消-noticegroup_admin_unset">[标准]群管理员取消 notice.group_admin_unset</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>成员 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>operator_id</td><td>String</td><td>操作者 ID</td></tr>
+</tbody></table>
+</div>
+<h3 id="扩展群名称更新-noticegroup_name_update"><a class="header" href="#扩展群名称更新-noticegroup_name_update">[扩展]群名称更新 notice.group_name_update</a></h3>
+<blockquote>
+<p>此事件为扩展事件</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>group_name</td><td>String</td><td>群名称</td></tr>
+<tr><td>operator_id</td><td>String</td><td>操作者 ID</td></tr>
+</tbody></table>
+</div>
+<h2 id="请求事件-request"><a class="header" href="#请求事件-request">请求事件 request</a></h2>
+<h3 id="扩展好友添加请求-requestnew_friend"><a class="header" href="#扩展好友添加请求-requestnew_friend">[扩展]好友添加请求 request.new_friend</a></h3>
+<blockquote>
+<p>此事件为扩展事件</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>request_id</td><td>i64</td><td>请求 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+<tr><td>user_name</td><td>String</td><td>用户名称/昵称</td></tr>
+<tr><td>message</td><td>String</td><td>请求信息</td></tr>
+</tbody></table>
+</div>
+<h3 id="扩展新成员加群申请-requestjoin_group"><a class="header" href="#扩展新成员加群申请-requestjoin_group">[扩展]新成员加群申请 request.join_group</a></h3>
+<blockquote>
+<p>此事件为扩展事件</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>request_id</td><td>i64</td><td>请求 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+<tr><td>user_name</td><td>String</td><td>用户名称/昵称</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>group_name</td><td>String</td><td>群名称</td></tr>
+<tr><td>message</td><td>String</td><td>请求信息</td></tr>
+<tr><td>suspicious</td><td>bool</td><td>是否可疑</td></tr>
+<tr><td>invitor_id</td><td>Option&lt;String&gt;</td><td>邀请人 ID</td></tr>
+<tr><td>invitor_name</td><td>Option&lt;String&gt;</td><td>邀请人名称</td></tr>
+</tbody></table>
+</div>
+<h3 id="扩展群邀请-requestgroup_invited"><a class="header" href="#扩展群邀请-requestgroup_invited">[扩展]群邀请 request.group_invited</a></h3>
+<blockquote>
+<p>此事件为扩展事件</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>request_id</td><td>i64</td><td>请求 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>group_name</td><td>String</td><td>群名称</td></tr>
+<tr><td>invitor_id</td><td>Option&lt;String&gt;</td><td>邀请人 ID</td></tr>
+<tr><td>invitor_name</td><td>Option&lt;String&gt;</td><td>邀请人名称</td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="message.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="action.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="message.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="action.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

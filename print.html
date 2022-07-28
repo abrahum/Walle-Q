@@ -1,0 +1,962 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Walle-Mk.Q 使用手册</title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="Introduction.html">简介</a></li><li class="chapter-item expanded affix "><li class="part-title">指南</li><li class="chapter-item expanded "><a href="start.html"><strong aria-hidden="true">1.</strong> 开始使用</a></li><li class="chapter-item expanded affix "><li class="part-title">接口</li><li class="chapter-item expanded "><a href="message.html"><strong aria-hidden="true">2.</strong> 消息 Message</a></li><li class="chapter-item expanded "><a href="event.html"><strong aria-hidden="true">3.</strong> 事件 Event</a></li><li class="chapter-item expanded "><a href="action.html"><strong aria-hidden="true">4.</strong> 动作 Action</a></li><li class="chapter-item expanded "><a href="v11.html"><strong aria-hidden="true">5.</strong> OneBot V11</a></li><li class="chapter-item expanded affix "><li class="part-title">其他</li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> 常见问题</div></li><li class="chapter-item expanded "><a href="changelog.html"><strong aria-hidden="true">7.</strong> 更新日志</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> 鸣谢</div></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Walle-Mk.Q 使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="walle-markq"><a class="header" href="#walle-markq">Walle-Mark.Q</a></h1>
+<p>一个 <a href="https://onebot.dev">OneBot</a> 协议端实现。</p>
+<p>本项目使用 <a href="https://github.com/lz1998/rs-qq">rs-qq</a> 协议库与 <a href="https://GitHub.com/abrahum/walle-core">Walle-core</a> LibOnebot 构建。</p>
+<p>请使用 OneBot SDK 开发连接至本应用的客户端。</p>
+<p>如果您使用其他方法，<strong>请确认您已完全了解 <a href="https://onebot.dev">OneBot</a> 协议</strong>，否则您的任何行为本项目开发者都将不予处理。</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="开始使用"><a class="header" href="#开始使用">开始使用</a></h2>
+<pre><code class="language-zsh"># 直接运行
+./walle-q
+# or
+./walle-q -h # for help
+</code></pre>
+<blockquote>
+<p>默认时间戳为本地时区，如需设置，请配置 --time-zone</p>
+</blockquote>
+<h2 id="配置列表"><a class="header" href="#配置列表">配置列表</a></h2>
+<pre><code class="language-toml">[qq.name]                     # name在密码登录时必须与 QQ 号一致
+password = &quot;your password&quot;    # password
+protocol = 0                  # 0..=5，默认为0
+
+[qq.other]                    # 缺失密码时默认使用扫码登录，扫码登录仅手表或MacOS可用
+
+[meta]
+log = &quot;Info&quot;                  # 日志级别，可选：Trace, Debug, Info, Warn, Error
+event_cache_size = 16         # 事件缓存区大小
+v11 = false                   # v11 协议模式（暂时失效）
+# time_zone = +8              # log 时区，默认为本地时区
+sled = false                  # 启用 sled 数据库
+disable_leveldb = false       # 禁用 level_db 数据库
+
+[[onebot.http]]
+host = &quot;127.0.0.1&quot;
+port = 6700
+access_token = &quot;token&quot;        # 默认为空
+event_enable =  true          # 是否推送事件
+event_buffer_size = 16        # 事件推送缓存区大小
+
+[[onebot.http_webhook]]
+url = &quot;http://127.0.0.1:6700&quot; 
+access_token = &quot;token&quot;        # 默认为空
+timeout = 4                   # 超时时间，单位秒
+
+[[onebot.websocket]]
+host = &quot;127.0.0.1&quot;
+port = 8844
+access_token = &quot;token&quot;        # 默认为空
+
+[[onebot.websocket_rev]]
+url = &quot;ws://127.0.0.1:8844&quot;
+access_token = &quot;token&quot;        # 默认为空
+reconnect_interval = 4
+
+[onebot.heartbeat]
+enabled = true
+interval = 4
+</code></pre>
+<p>已支持协议设备：</p>
+<ul>
+<li>0: <code>IPad</code></li>
+<li>1: <code>AndroidPhone</code></li>
+<li>2: <code>AndroidWatch</code></li>
+<li>3: <code>MacOS</code></li>
+<li>4: <code>QiDian</code></li>
+<li>5: <code>IPad</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="消息-message"><a class="header" href="#消息-message">消息 Message</a></h1>
+<p>根据 OneBot 协议规定，消息是由不定数个消息段 (MessageSegment) 组成的 List。</p>
+<p>以下列举支持的消息段：</p>
+<h2 id="文本消息-text"><a class="header" href="#文本消息-text">文本消息 text</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>text</td><td>String</td><td>消息文本</td></tr>
+</tbody></table>
+</div>
+<h2 id="提及消息-mention"><a class="header" href="#提及消息-mention">提及消息 mention</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+</tbody></table>
+</div>
+<h2 id="提及所有人消息-mention_all"><a class="header" href="#提及所有人消息-mention_all">提及所有人消息 mention_all</a></h2>
+<p>无字段</p>
+<h2 id="表情消息-face"><a class="header" href="#表情消息-face">表情消息 face</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>id</td><td>Int</td><td>表情 ID</td></tr>
+<tr><td>file</td><td>String</td><td>表情名称</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>发送时优先根据 id 确认表情当 id 不存在时，可以根据 file 确认表情。
+二者均无法匹配时，将忽略该消息段。</p>
+</blockquote>
+<h2 id="骰子消息-dice"><a class="header" href="#骰子消息-dice">骰子消息 dice</a></h2>
+<blockquote>
+<p><em>未支持发送该消息段</em>
+此消息段为扩展消息段</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>value</td><td>Int</td><td>骰子值</td></tr>
+</tbody></table>
+</div>
+<h2 id="石头剪刀布消息-rps"><a class="header" href="#石头剪刀布消息-rps">石头剪刀布消息 rps</a></h2>
+<blockquote>
+<p><em>未支持发送该消息段</em>
+此消息段为扩展消息段</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>value</td><td>Int</td><td>石头 =&gt; 0，剪刀 =&gt; 1，布 =&gt; 2</td></tr>
+</tbody></table>
+</div>
+<h2 id="图片消息-image"><a class="header" href="#图片消息-image">图片消息 image</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>file_id</td><td>String</td><td>图片文件 ID</td></tr>
+<tr><td>url</td><td>String</td><td>可选，图片 url</td></tr>
+<tr><td>flash</td><td>bool</td><td>可选，是否为闪照</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>url支持协议：</p>
+<ul>
+<li>http: <code>http://example.com/image.png</code></li>
+<li>https: <code>https://example.com/image.png</code></li>
+<li>file: <code>file:///path/to/image.png</code></li>
+<li>base64: <code>base64://image_base64_str</code></li>
+</ul>
+</blockquote>
+<h2 id="语音消息-voice"><a class="header" href="#语音消息-voice">语音消息 voice</a></h2>
+<blockquote>
+<p>语音消息段仅支持单独发送，当同级中存在其他消息段，该语音消息段将被忽略。</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>file_id</td><td>String</td><td>语音文件 ID</td></tr>
+</tbody></table>
+</div>
+<h2 id="富文本消息-json"><a class="header" href="#富文本消息-json">富文本消息 json</a></h2>
+<blockquote>
+<p><em>未支持发送该消息段</em>
+此消息段为扩展消息段</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>data</td><td>String</td><td>json 内容</td></tr>
+</tbody></table>
+</div>
+<h2 id="回复消息-reply"><a class="header" href="#回复消息-reply">回复消息 reply</a></h2>
+<blockquote>
+<p>此消息段为扩展消息段</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>message_id</td><td>String</td><td>回复引用的消息ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>回复引用的用户ID</td></tr>
+</tbody></table>
+</div>
+<h2 id="富文本消息-xml"><a class="header" href="#富文本消息-xml">富文本消息 xml</a></h2>
+<blockquote>
+<p>此消息段为扩展消息段</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>service_id</td><td>i64</td><td>服务 ID</td></tr>
+<tr><td>data</td><td>String</td><td>xml 内容</td></tr>
+</tbody></table>
+</div>
+<h2 id="合并转发节点-node"><a class="header" href="#合并转发节点-node">合并转发节点 node</a></h2>
+<blockquote>
+<p>node 消息段仅在同级中不存在其他类型消息段时生效（ voice 消息段除外，即优先级：others &gt; node &gt; voice ）</p>
+<p>合并转发消息段接收时将被视为 xml 富文本消息段</p>
+<p>此消息段为扩展消息段</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+<tr><td>time</td><td>f64</td><td>时间</td></tr>
+<tr><td>user_name</td><td>String</td><td>用户名</td></tr>
+<tr><td>message</td><td>Vec&lt;MessageSegment&gt;</td><td>消息</td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="事件-event"><a class="header" href="#事件-event">事件 Event</a></h1>
+<p>所有事件共有字段</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>id</td><td>String</td><td>事件 ID</td></tr>
+<tr><td>impl</td><td>String</td><td>实现名，即 <code>Walle-Q</code></td></tr>
+<tr><td>platform</td><td>String</td><td>平台名，即 <code>qq</code></td></tr>
+<tr><td>self_id</td><td>String</td><td>Bot ID</td></tr>
+<tr><td>time</td><td>f64</td><td>事件戳，单位：秒</td></tr>
+</tbody></table>
+</div>
+<h2 id="消息事件-message"><a class="header" href="#消息事件-message">消息事件 message</a></h2>
+<h3 id="标准单用户消息事件-messageprivate"><a class="header" href="#标准单用户消息事件-messageprivate">[标准]单用户消息事件 message.private</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>message_id</td><td>String</td><td>消息 ID</td></tr>
+<tr><td>message</td><td>Message</td><td>消息对象</td></tr>
+<tr><td>alt_message</td><td>String</td><td>消息文本</td></tr>
+<tr><td>user_id</td><td>String</td><td>发送者 ID</td></tr>
+<tr><td>user_name</td><td>String</td><td>发送者 nickname</td></tr>
+</tbody></table>
+</div>
+<h3 id="扩展群临时消息-messagegroup_temp"><a class="header" href="#扩展群临时消息-messagegroup_temp">[扩展]群临时消息 message.group_temp</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>message_id</td><td>String</td><td>消息 ID</td></tr>
+<tr><td>message</td><td>Message</td><td>消息对象</td></tr>
+<tr><td>alt_message</td><td>String</td><td>消息文本</td></tr>
+<tr><td>user_id</td><td>String</td><td>发送者 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>user_name</td><td>String</td><td>发送者 nickname</td></tr>
+</tbody></table>
+</div>
+<h3 id="标准群用户消息事件-messagegroup"><a class="header" href="#标准群用户消息事件-messagegroup">[标准]群用户消息事件 message.group</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>message_id</td><td>String</td><td>消息 ID</td></tr>
+<tr><td>message</td><td>Message</td><td>消息对象</td></tr>
+<tr><td>alt_message</td><td>String</td><td>消息文本</td></tr>
+<tr><td>user_id</td><td>String</td><td>发送者 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td><em>user_card</em></td><td>String</td><td>发送者名片</td></tr>
+<tr><td><em>group_name</em></td><td>String</td><td>群名称</td></tr>
+</tbody></table>
+</div>
+<h2 id="通知事件-notice"><a class="header" href="#通知事件-notice">通知事件 notice</a></h2>
+<h3 id="标准好友消息撤回-noticeprivate_message_delete"><a class="header" href="#标准好友消息撤回-noticeprivate_message_delete">[标准]好友消息撤回 notice.private_message_delete</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>message_id</td><td>String</td><td>消息 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>发送者 ID</td></tr>
+</tbody></table>
+</div>
+<h3 id="标准好友增加-noticefriend_increase"><a class="header" href="#标准好友增加-noticefriend_increase">[标准]好友增加 notice.friend_increase</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>好友 ID</td></tr>
+<tr><td><em>user_name</em></td><td>String</td><td>好友昵称</td></tr>
+</tbody></table>
+</div>
+<h3 id="标准好友减少-noticefriend_decrease"><a class="header" href="#标准好友减少-noticefriend_decrease">[标准]好友减少 notice.friend_decrease</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>好友 ID</td></tr>
+</tbody></table>
+</div>
+<h3 id="扩展好友戳一戳-noticefriend_poke"><a class="header" href="#扩展好友戳一戳-noticefriend_poke">[扩展]好友戳一戳 notice.friend_poke</a></h3>
+<blockquote>
+<p>此事件为扩展事件</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>发送者 ID</td></tr>
+<tr><td>receiver_id</td><td>String</td><td>接收者 ID</td></tr>
+</tbody></table>
+</div>
+<h3 id="标准群成员增加-noticegroup_member_increase"><a class="header" href="#标准群成员增加-noticegroup_member_increase">[标准]群成员增加 notice.group_member_increase</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>sub_type</td><td>String</td><td>加群类型</td></tr>
+<tr><td>user_id</td><td>String</td><td>成员 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>operator_id</td><td>String</td><td>操作者 ID (暂缺)</td></tr>
+</tbody></table>
+</div>
+<h3 id="标准群成员减少-noticegroup_member_decrease"><a class="header" href="#标准群成员减少-noticegroup_member_decrease">[标准]群成员减少 notice.group_member_decrease</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>sub_type</td><td>String</td><td>退群类型 leave | kick | disband</td></tr>
+<tr><td>user_id</td><td>String</td><td>成员 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>operator_id</td><td>String</td><td>操作者 ID</td></tr>
+</tbody></table>
+</div>
+<h3 id="标准群成员禁言-noticegroup_member_ban"><a class="header" href="#标准群成员禁言-noticegroup_member_ban">[标准]群成员禁言 notice.group_member_ban</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>成员 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>operator_id</td><td>String</td><td>操作者 ID</td></tr>
+<tr><td><em>duration</em></td><td>i64</td><td>禁言时长，单位：秒</td></tr>
+</tbody></table>
+</div>
+<h3 id="标准群消息撤回-noticegroup_message_delete"><a class="header" href="#标准群消息撤回-noticegroup_message_delete">[标准]群消息撤回 notice.group_message_delete</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>sub_type</td><td>String</td><td>撤回类型 recall 或 delete</td></tr>
+<tr><td>message_id</td><td>String</td><td>消息 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>成员 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>operator_id</td><td>String</td><td>操作者 ID</td></tr>
+</tbody></table>
+</div>
+<h3 id="标准群管理员设置-noticegroup_admin_set"><a class="header" href="#标准群管理员设置-noticegroup_admin_set">[标准]群管理员设置 notice.group_admin_set</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>成员 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>operator_id</td><td>String</td><td>操作者 ID</td></tr>
+</tbody></table>
+</div>
+<h3 id="标准群管理员取消-noticegroup_admin_unset"><a class="header" href="#标准群管理员取消-noticegroup_admin_unset">[标准]群管理员取消 notice.group_admin_unset</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>成员 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>operator_id</td><td>String</td><td>操作者 ID</td></tr>
+</tbody></table>
+</div>
+<h3 id="扩展群名称更新-noticegroup_name_update"><a class="header" href="#扩展群名称更新-noticegroup_name_update">[扩展]群名称更新 notice.group_name_update</a></h3>
+<blockquote>
+<p>此事件为扩展事件</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>group_name</td><td>String</td><td>群名称</td></tr>
+<tr><td>operator_id</td><td>String</td><td>操作者 ID</td></tr>
+</tbody></table>
+</div>
+<h2 id="请求事件-request"><a class="header" href="#请求事件-request">请求事件 request</a></h2>
+<h3 id="扩展好友添加请求-requestnew_friend"><a class="header" href="#扩展好友添加请求-requestnew_friend">[扩展]好友添加请求 request.new_friend</a></h3>
+<blockquote>
+<p>此事件为扩展事件</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>request_id</td><td>i64</td><td>请求 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+<tr><td>user_name</td><td>String</td><td>用户名称/昵称</td></tr>
+<tr><td>message</td><td>String</td><td>请求信息</td></tr>
+</tbody></table>
+</div>
+<h3 id="扩展新成员加群申请-requestjoin_group"><a class="header" href="#扩展新成员加群申请-requestjoin_group">[扩展]新成员加群申请 request.join_group</a></h3>
+<blockquote>
+<p>此事件为扩展事件</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>request_id</td><td>i64</td><td>请求 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+<tr><td>user_name</td><td>String</td><td>用户名称/昵称</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>group_name</td><td>String</td><td>群名称</td></tr>
+<tr><td>message</td><td>String</td><td>请求信息</td></tr>
+<tr><td>suspicious</td><td>bool</td><td>是否可疑</td></tr>
+<tr><td>invitor_id</td><td>Option&lt;String&gt;</td><td>邀请人 ID</td></tr>
+<tr><td>invitor_name</td><td>Option&lt;String&gt;</td><td>邀请人名称</td></tr>
+</tbody></table>
+</div>
+<h3 id="扩展群邀请-requestgroup_invited"><a class="header" href="#扩展群邀请-requestgroup_invited">[扩展]群邀请 request.group_invited</a></h3>
+<blockquote>
+<p>此事件为扩展事件</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>request_id</td><td>i64</td><td>请求 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>group_name</td><td>String</td><td>群名称</td></tr>
+<tr><td>invitor_id</td><td>Option&lt;String&gt;</td><td>邀请人 ID</td></tr>
+<tr><td>invitor_name</td><td>Option&lt;String&gt;</td><td>邀请人名称</td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="动作-action"><a class="header" href="#动作-action">动作 Action</a></h1>
+<h2 id="元动作"><a class="header" href="#元动作">元动作</a></h2>
+<h3 id="获取近期事件-get_latest_events"><a class="header" href="#获取近期事件-get_latest_events">获取近期事件 get_latest_events</a></h3>
+<p>动作请求：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>limit</td><td>i64</td><td>获取的事件数量上限，0 使用默认值 10</td></tr>
+<tr><td>timeout</td><td>i64</td><td>没有事件时要等待的秒数，0 表示使用短轮询，不等待</td></tr>
+</tbody></table>
+</div>
+<p>动作响应为 Vec&lt;Event&gt; </p>
+<h3 id="获取支持的动作列表-get_supported_actions"><a class="header" href="#获取支持的动作列表-get_supported_actions">获取支持的动作列表 get_supported_actions</a></h3>
+<p>无动作请求数据</p>
+<p>动作响应为 Vec&lt;String&gt; </p>
+<h3 id="获取运行状态-get_status"><a class="header" href="#获取运行状态-get_status">获取运行状态 get_status</a></h3>
+<p>无动作请求数据</p>
+<p>动作响应：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>good</td><td>bool</td><td>是否各项状态都符合预期，OneBot 实现各模块均正常</td></tr>
+<tr><td>online</td><td>bool</td><td>是否在线</td></tr>
+</tbody></table>
+</div>
+<h3 id="获取版本信息-get_version"><a class="header" href="#获取版本信息-get_version">获取版本信息 get_version</a></h3>
+<p>无动作请求数据</p>
+<p>动作响应：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>impl</td><td>String</td><td><code>Walle-Q</code></td></tr>
+<tr><td>platform</td><td>String</td><td><code>qq</code></td></tr>
+<tr><td>version</td><td>String</td><td>Walle-Q 版本号</td></tr>
+<tr><td>onebot_version</td><td>String</td><td><code>12</code></td></tr>
+</tbody></table>
+</div>
+<h2 id="消息动作"><a class="header" href="#消息动作">消息动作</a></h2>
+<h3 id="发送消息-send_message"><a class="header" href="#发送消息-send_message">发送消息 send_message</a></h3>
+<p>动作请求：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>detail_type</td><td>String</td><td>private | group | group_temp</td></tr>
+<tr><td>group_id</td><td>Option&lt;String&gt;</td><td>群 ID</td></tr>
+<tr><td>user_id</td><td>Option&lt;String&gt;</td><td>用户 ID</td></tr>
+<tr><td>message</td><td>Message</td><td>消息内容</td></tr>
+</tbody></table>
+</div>
+<p>动作响应：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>message_id</td><td>String</td><td>消息 ID</td></tr>
+<tr><td>time</td><td>f64</td><td>时间戳，单位：秒</td></tr>
+</tbody></table>
+</div>
+<h3 id="删除消息-delete_message"><a class="header" href="#删除消息-delete_message">删除消息 delete_message</a></h3>
+<p>动作请求：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>message_id</td><td>String</td><td>消息 ID</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="获取消息-get_message"><a class="header" href="#获取消息-get_message">获取消息 get_message</a></h3>
+<blockquote>
+<p>此动作为扩展动作</p>
+</blockquote>
+<p>动作请求：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>message_id</td><td>String</td><td>消息 ID</td></tr>
+</tbody></table>
+</div>
+<p>响应数据:</p>
+<p>同消息事件 MessageEvent</p>
+<h2 id="单用户动作"><a class="header" href="#单用户动作">单用户动作</a></h2>
+<h3 id="获取机器人自身信息-get_self_info"><a class="header" href="#获取机器人自身信息-get_self_info">获取机器人自身信息 get_self_info</a></h3>
+<p>无动作请求数据</p>
+<p>动作响应：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>机器人用户 ID</td></tr>
+<tr><td>nickname</td><td>String</td><td>机器人名称/昵称</td></tr>
+</tbody></table>
+</div>
+<h3 id="获取用户信息-get_user_info"><a class="header" href="#获取用户信息-get_user_info">获取用户信息 get_user_info</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+</tbody></table>
+</div>
+<p>动作响应：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+<tr><td>nickname</td><td>String</td><td>名称/昵称</td></tr>
+</tbody></table>
+</div>
+<h3 id="获取好友列表-get_friend_list"><a class="header" href="#获取好友列表-get_friend_list">获取好友列表 get_friend_list</a></h3>
+<p>无动作请求数据</p>
+<p>好友信息列表，每一个元素的字段同 <code>get_user_info</code> 的响应数据。</p>
+<h3 id="处理好友请求-set_new_friend"><a class="header" href="#处理好友请求-set_new_friend">处理好友请求 set_new_friend</a></h3>
+<blockquote>
+<p>此动作为扩展动作</p>
+</blockquote>
+<p>动作请求：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+<tr><td>request_id</td><td>i64</td><td>请求 ID</td></tr>
+<tr><td>accept</td><td>bool</td><td>是否接受请求</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="删除好友-delete_friend"><a class="header" href="#删除好友-delete_friend">删除好友 delete_friend</a></h3>
+<blockquote>
+<p>此动作为扩展动作</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p><strong>注意</strong>：如果目标用户不是好友，不会返回错误信息</p>
+</blockquote>
+<p>无动作响应数据</p>
+<h3 id="获取好友请求列表-get_new_friend_requests"><a class="header" href="#获取好友请求列表-get_new_friend_requests">获取好友请求列表 get_new_friend_requests</a></h3>
+<blockquote>
+<p>此动作为扩展动作</p>
+</blockquote>
+<p>无动作请求数据</p>
+<p>动作响应为 Vec&lt;event.request.new_friend&gt;</p>
+<h2 id="单级群组动作"><a class="header" href="#单级群组动作">单级群组动作</a></h2>
+<h3 id="获取群信息-get_group_info"><a class="header" href="#获取群信息-get_group_info">获取群信息 get_group_info</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+</tbody></table>
+</div>
+<p>动作响应：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段名</th><th>数据类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>group_name</td><td>String</td><td>群名称</td></tr>
+</tbody></table>
+</div>
+<h3 id="获取群列表-get_group_list"><a class="header" href="#获取群列表-get_group_list">获取群列表 get_group_list</a></h3>
+<p>无动作请求数据</p>
+<p>群信息列表，每一个元素的字段同 <code>get_group_info</code> 的响应数据。</p>
+<h3 id="获取群成员信息-get_group_member_info"><a class="header" href="#获取群成员信息-get_group_member_info">获取群成员信息 get_group_member_info</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+</tbody></table>
+</div>
+<p>动作响应：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段名</th><th>数据类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+<tr><td>nickname</td><td>String</td><td>用户名称/昵称</td></tr>
+</tbody></table>
+</div>
+<h3 id="获取群成员列表-get_group_member_list"><a class="header" href="#获取群成员列表-get_group_member_list">获取群成员列表 get_group_member_list</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+</tbody></table>
+</div>
+<p>群信息列表，每一个元素的字段同 <code>get_group_member_info</code> 的响应数据。</p>
+<h3 id="设置群名称-set_group_name"><a class="header" href="#设置群名称-set_group_name">设置群名称 set_group_name</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>group_name</td><td>String</td><td>群名称</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="退出群-leave_group"><a class="header" href="#退出群-leave_group">退出群 leave_group</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="踢出群成员-kick_group_member"><a class="header" href="#踢出群成员-kick_group_member">踢出群成员 kick_group_member</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="禁言群成员-ban_group_member"><a class="header" href="#禁言群成员-ban_group_member">禁言群成员 ban_group_member</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+<tr><td>duration</td><td>i64</td><td>时长，单位：秒</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="解禁群成员-unban_group_member"><a class="header" href="#解禁群成员-unban_group_member">解禁群成员 unban_group_member</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="设置群管理员-set_group_admin"><a class="header" href="#设置群管理员-set_group_admin">设置群管理员 set_group_admin</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="取消群管理员-unset_group_admin"><a class="header" href="#取消群管理员-unset_group_admin">取消群管理员 unset_group_admin</a></h3>
+<p>动作请求:</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="处理加群请求-set_join_group"><a class="header" href="#处理加群请求-set_join_group">处理加群请求 set_join_group</a></h3>
+<blockquote>
+<p>此动作为扩展动作</p>
+</blockquote>
+<p>动作请求：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>request_id</td><td>i64</td><td>请求 ID</td></tr>
+<tr><td>user_id</td><td>String</td><td>用户 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>accept</td><td>bool</td><td>是否接受</td></tr>
+<tr><td>block</td><td>Option&lt;bool&gt;</td><td>是否禁止再次申请</td></tr>
+<tr><td>message</td><td>Option&lt;String&gt;</td><td>拒绝理由</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="获取加群申请-get_join_group_requests"><a class="header" href="#获取加群申请-get_join_group_requests">获取加群申请 get_join_group_requests</a></h3>
+<blockquote>
+<p>此动作为扩展动作</p>
+</blockquote>
+<p>无动作请求数据</p>
+<p>动作响应为 Vec&lt;event.request.join_group&gt;</p>
+<h3 id="处理群邀请-set_group_invited"><a class="header" href="#处理群邀请-set_group_invited">处理群邀请 set_group_invited</a></h3>
+<blockquote>
+<p>此动作为扩展动作</p>
+</blockquote>
+<p>动作请求：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>request_id</td><td>i64</td><td>请求 ID</td></tr>
+<tr><td>group_id</td><td>String</td><td>群 ID</td></tr>
+<tr><td>accept</td><td>bool</td><td>是否接受</td></tr>
+</tbody></table>
+</div>
+<p>无动作响应数据</p>
+<h3 id="获取群邀请-get_group_inviteds"><a class="header" href="#获取群邀请-get_group_inviteds">获取群邀请 get_group_inviteds</a></h3>
+<blockquote>
+<p>此动作为扩展动作</p>
+</blockquote>
+<p>无动作请求数据</p>
+<p>动作响应为 Vec&lt;event.request.group_invited&gt;</p>
+<h2 id="文件动作"><a class="header" href="#文件动作">文件动作</a></h2>
+<h3 id="上传文件-upload_file"><a class="header" href="#上传文件-upload_file">上传文件 upload_file</a></h3>
+<p>动作请求：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>type</td><td>String</td><td>上传方式：url | path | data</td></tr>
+<tr><td>name</td><td>String</td><td>文件名称</td></tr>
+<tr><td>url</td><td>Option&lt;String&gt;</td><td>上传方式为 url 时需要提供的 url</td></tr>
+<tr><td>data</td><td>Option&lt;Map&lt;String, String&gt;&gt;</td><td>url 可选 headers</td></tr>
+<tr><td>path</td><td>Option&lt;String&gt;</td><td>上传方式为 path 时需要提供的路径</td></tr>
+<tr><td>data</td><td>Option&lt;String&gt;</td><td>上传方式为 data 时需要提供的数据</td></tr>
+<tr><td>sha256</td><td>Option&lt;String&gt;</td><td>文件的 sha256 值</td></tr>
+<tr><td>file_type</td><td>Option&lt;String&gt;</td><td>文件类型，缺省值为 image</td></tr>
+</tbody></table>
+</div>
+<p>动作响应：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>file_id</td><td>String</td><td>文件 ID</td></tr>
+</tbody></table>
+</div>
+<h3 id="获取文件-get_file"><a class="header" href="#获取文件-get_file">获取文件 get_file</a></h3>
+<p>动作请求：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>file_id</td><td>String</td><td>文件 ID</td></tr>
+<tr><td>type</td><td>String</td><td>上传方式：url | path | data</td></tr>
+<tr><td>file_type</td><td>Option&lt;String&gt;</td><td>文件类型，缺省值为 image</td></tr>
+</tbody></table>
+</div>
+<p>动作响应：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>type</td><td>String</td><td>上传方式：url | path | data</td></tr>
+<tr><td>name</td><td>String</td><td>文件名称</td></tr>
+<tr><td>url</td><td>Option&lt;String&gt;</td><td>上传方式为 url 时需要提供的 url</td></tr>
+<tr><td>data</td><td>Option&lt;Map&lt;String, String&gt;&gt;</td><td>url 可选 headers</td></tr>
+<tr><td>path</td><td>Option&lt;String&gt;</td><td>上传方式为 path 时需要提供的路径</td></tr>
+<tr><td>data</td><td>Option&lt;String&gt;</td><td>上传方式为 data 时需要提供的数据</td></tr>
+<tr><td>sha256</td><td>Option&lt;String&gt;</td><td>文件的 sha256 值</td></tr>
+</tbody></table>
+</div>
+<h3 id="分片上传文件-upload_file_fragmented"><a class="header" href="#分片上传文件-upload_file_fragmented">分片上传文件 upload_file_fragmented</a></h3>
+<blockquote>
+<p>累了，看 Onebot12 文档吧，一样的 ╯︿╰</p>
+</blockquote>
+<h3 id="分片获取文件-get_file_fragmented"><a class="header" href="#分片获取文件-get_file_fragmented">分片获取文件 get_file_fragmented</a></h3>
+<blockquote>
+<p>累了，看 Onebot12 文档吧，一样的 ╯︿╰</p>
+</blockquote>
+<h1 id="错误代码-error-code"><a class="header" href="#错误代码-error-code">错误代码 Error Code</a></h1>
+<div class="table-wrapper"><table><thead><tr><th>Code</th><th>名称</th><th>说明</th><th>备注</th></tr></thead><tbody>
+<tr><td>10001</td><td>Bad Request</td><td>无效的动作请求</td><td>格式错误等</td></tr>
+<tr><td>10002</td><td>Unsupported Action</td><td>不支持的动作请求</td><td>不支持的动作</td></tr>
+<tr><td>10003</td><td>Bad Param</td><td>无效的请求参数</td><td>参数缺失或参数类型错误</td></tr>
+<tr><td>10004</td><td>Unsupported Param</td><td>不支持的请求参数</td><td>请求参数未实现</td></tr>
+<tr><td>10005</td><td>Unsupported Segment</td><td>不支持的消息段类型</td><td>消息段类型未实现</td></tr>
+<tr><td>10006</td><td>Bad Segment Data</td><td>无效的消息段数据</td><td>消息段数据格式错误</td></tr>
+<tr><td>10007</td><td>Unsupported Segment Data</td><td>不支持的消息段参数</td><td>消息段参数未实现</td></tr>
+<tr><td>20001</td><td>Bad Handler</td><td>动作处理器实现错误</td><td>没有正确设置响应状态等</td></tr>
+<tr><td>20002</td><td>Internal Handler Error</td><td>动作处理器运行时异常</td><td>未捕获的意料之外的异常</td></tr>
+<tr><td>20003</td><td>Prepare File Error</td><td>分片上传文件未prepare</td><td>分片上传文件未prepare</td></tr>
+<tr><td>20004</td><td>File Size Error</td><td>分片上传文件大小错误</td><td>文件大小与预先约定不匹配</td></tr>
+<tr><td>20005</td><td>File Sha256 Error</td><td>分片上传文件哈希错误</td><td>Sha256值与预先约定不匹配</td></tr>
+<tr><td>32001</td><td>File Open Error</td><td>文件打开失败</td><td>文件打开失败</td></tr>
+<tr><td>32002</td><td>File Read Error</td><td>文件读取失败</td><td>文件读取失败</td></tr>
+<tr><td>32003</td><td>File Create Error</td><td>文件创建失败</td><td>文件创建失败</td></tr>
+<tr><td>32004</td><td>File Write Error</td><td>文件写入失败</td><td>文件写入失败</td></tr>
+<tr><td>32005</td><td>File Not Found Error</td><td>文件不存在</td><td>文件不存在</td></tr>
+<tr><td>33001</td><td>Net Download Error</td><td>网络下载错误</td><td>网络下载错误</td></tr>
+<tr><td>34001</td><td>Ricq Error</td><td>ricq 未处理报错</td><td>ricq 报错</td></tr>
+<tr><td>35001</td><td>Message Not Exist</td><td>消息不存在</td><td>消息不存在</td></tr>
+<tr><td>35002</td><td>Friend Not Exist</td><td>好友不存在</td><td>好友不存在</td></tr>
+<tr><td>35003</td><td>Group Not Exist</td><td>群不存在</td><td>群不存在</td></tr>
+<tr><td>35004</td><td>Group Member Not Exist</td><td>群成员不存在</td><td>群成员不存在</td></tr>
+<tr><td>35005</td><td>Permission Denied</td><td>权限不足</td><td>不是群管理员等</td></tr>
+<tr><td>61001</td><td>ImageInfo Decode Error</td><td>图片信息解码错误</td><td>图片信息解码错误</td></tr>
+<tr><td>61002</td><td>Image Url Error</td><td>图片URL错误</td><td>图片URL不存在或解析错误</td></tr>
+<tr><td>61003</td><td>Image Path Error</td><td>图片路径错误</td><td>图片路径不存在或解析错误</td></tr>
+<tr><td>61004</td><td>Image Data Error</td><td>图片内容错误</td><td>图片文件下载或读取失败</td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="消息-message-1"><a class="header" href="#消息-message-1">消息 Message</a></h1>
+<h2 id="文本消息-text-1"><a class="header" href="#文本消息-text-1">文本消息 text</a></h2>
+<blockquote>
+<p>From: <a href="./message.html#%E6%96%87%E6%9C%AC%E6%B6%88%E6%81%AF-text">文本消息 text</a></p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>text</td><td>String</td><td>消息文本</td></tr>
+</tbody></table>
+</div>
+<h2 id="at消息-at"><a class="header" href="#at消息-at">At消息 at</a></h2>
+<blockquote>
+<p>From: <a href="./message.html#%E6%8F%90%E5%8F%8A%E6%B6%88%E6%81%AF-mention">提及消息 mention</a> | <a href="./message.html#%E6%8F%90%E5%8F%8A%E6%89%80%E6%9C%89%E4%BA%BA%E6%B6%88%E6%81%AF-mention_all">提及所有人消息 mention_all</a></p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>qq</td><td>String</td><td>用户 ID, <code>all</code> 表示全体成员</td></tr>
+</tbody></table>
+</div>
+<h2 id="图片消息-iamge"><a class="header" href="#图片消息-iamge">图片消息 iamge</a></h2>
+<blockquote>
+<p>From: <a href="./message.html#%E5%9B%BE%E7%89%87%E6%B6%88%E6%81%AF-iamge">图片消息 image</a></p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead><tbody>
+<tr><td>file</td><td>String</td><td>图片 url | 图片文件 ID</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>file url 支持协议详见 <a href="./message.html#%E5%9B%BE%E7%89%87%E6%B6%88%E6%81%AF-iamge">图片消息 image</a></p>
+</blockquote>
+<h2 id="语音消息-voice-1"><a class="header" href="#语音消息-voice-1">语音消息 voice</a></h2>
+<blockquote>
+<p>todo</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="020"><a class="header" href="#020">0.2.0</a></h2>
+<h3 id="fixes"><a class="header" href="#fixes">Fixes</a></h3>
+<ul>
+<li>#12: 群操作权限检查，群成员信息获取检查</li>
+<li>#19: at 显示缺失 @ 字符</li>
+</ul>
+<h3 id="dependencies"><a class="header" href="#dependencies">Dependencies</a></h3>
+<ul>
+<li>walle-core: 0.6.0-a1 -&gt; 0.6.0</li>
+<li>ricq: 0.1.15 -&gt; 0.1.16</li>
+</ul>
+<h3 id="breaking-changes"><a class="header" href="#breaking-changes">Breaking Changes</a></h3>
+<ul>
+<li>forward 消息段被移除，直接发送 Vec&lt;node&gt; 即视为 forward 消息段（优先级低于普通其他消息段）</li>
+</ul>
+<h3 id="others"><a class="header" href="#others">Others</a></h3>
+<ul>
+<li>感谢 <a href="https://github.com/Itsusinn">Itsusinn</a> 对项目 ci 的优化 pr</li>
+</ul>
+<h2 id="020-a1"><a class="header" href="#020-a1">0.2.0-a1</a></h2>
+<h3 id="features"><a class="header" href="#features">Features</a></h3>
+<ul>
+<li>支持多 Bot 登录</li>
+</ul>
+<h3 id="dependencies-1"><a class="header" href="#dependencies-1">Dependencies</a></h3>
+<ul>
+<li>walle-core: 0.6.0-a1</li>
+<li>移除 qrcode 相关依赖</li>
+</ul>
+<h3 id="others-1"><a class="header" href="#others-1">Others</a></h3>
+<ul>
+<li>配置文件切换为 toml 格式</li>
+<li>优化编译后文件大小</li>
+</ul>
+<h2 id="014"><a class="header" href="#014">0.1.4</a></h2>
+<h3 id="features-1"><a class="header" href="#features-1">Features</a></h3>
+<ul>
+<li>添加 event.message.group_temp</li>
+<li>添加 event.notice.friend_poke</li>
+<li>添加 event.notice.group_name_update</li>
+<li>添加 event.request.join_group</li>
+<li>添加 event.request.group_invited</li>
+<li>添加 set_join_group 动作</li>
+<li>添加 get_join_group_requests 动作</li>
+<li>添加 set_group_invited 动作</li>
+<li>添加 get_group_inviteds 动作</li>
+</ul>
+<h3 id="dependencies-2"><a class="header" href="#dependencies-2">Dependencies</a></h3>
+<ul>
+<li>walle-core: 0.5.4</li>
+</ul>
+<h3 id="others-2"><a class="header" href="#others-2">Others</a></h3>
+<ul>
+<li>暂时移除 Onebot V11 支持</li>
+</ul>
+<h2 id="013"><a class="header" href="#013">0.1.3</a></h2>
+<h3 id="features-2"><a class="header" href="#features-2">Features</a></h3>
+<ul>
+<li>添加 event.request.new_friend</li>
+<li>添加 set_new_friend 动作</li>
+<li>添加 delete_friend 动作</li>
+<li>添加 get_new_friend_requests 动作</li>
+<li>添加 upload_file_fragmented 动作支持</li>
+<li>添加 get_file_fragmented 动作支持</li>
+<li>支持收发 Reply 消息段</li>
+<li>支持发送 forward 消息段</li>
+</ul>
+<h2 id="012"><a class="header" href="#012">0.1.2</a></h2>
+<h3 id="features-3"><a class="header" href="#features-3">Features</a></h3>
+<ul>
+<li>命令行二维码打印</li>
+<li>添加部分扩展字段</li>
+</ul>
+<h3 id="internal"><a class="header" href="#internal">Internal</a></h3>
+<ul>
+<li>ricq update to 0.1.8</li>
+<li>walle-core update to 0.5.0</li>
+</ul>
+<h2 id="011"><a class="header" href="#011">0.1.1</a></h2>
+<ul>
+<li>修复 v11 模式 url file 协议解析</li>
+<li>新增 log 文件，将会记录 WARN Level 以上的错误信息</li>
+</ul>
+<h2 id="010"><a class="header" href="#010">0.1.0</a></h2>
+<p>Nothing new</p>
+<h2 id="003"><a class="header" href="#003">0.0.3</a></h2>
+<ul>
+<li>支持图片消息发送</li>
+<li>Onebot v11 支持</li>
+</ul>
+<h2 id="002"><a class="header" href="#002">0.0.2</a></h2>
+<ul>
+<li>支持更多 action</li>
+<li>修复 websocket 连接断开问题</li>
+</ul>
+<h2 id="001"><a class="header" href="#001">0.0.1</a></h2>
+<ul>
+<li>第一个 pre release 版本</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+    </body>
+</html>

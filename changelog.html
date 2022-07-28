@@ -1,0 +1,269 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>更新日志 - Walle-Mk.Q 使用手册</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="Introduction.html">简介</a></li><li class="chapter-item expanded affix "><li class="part-title">指南</li><li class="chapter-item expanded "><a href="start.html"><strong aria-hidden="true">1.</strong> 开始使用</a></li><li class="chapter-item expanded affix "><li class="part-title">接口</li><li class="chapter-item expanded "><a href="message.html"><strong aria-hidden="true">2.</strong> 消息 Message</a></li><li class="chapter-item expanded "><a href="event.html"><strong aria-hidden="true">3.</strong> 事件 Event</a></li><li class="chapter-item expanded "><a href="action.html"><strong aria-hidden="true">4.</strong> 动作 Action</a></li><li class="chapter-item expanded "><a href="v11.html"><strong aria-hidden="true">5.</strong> OneBot V11</a></li><li class="chapter-item expanded affix "><li class="part-title">其他</li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> 常见问题</div></li><li class="chapter-item expanded "><a href="changelog.html" class="active"><strong aria-hidden="true">7.</strong> 更新日志</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> 鸣谢</div></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Walle-Mk.Q 使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="020"><a class="header" href="#020">0.2.0</a></h2>
+<h3 id="fixes"><a class="header" href="#fixes">Fixes</a></h3>
+<ul>
+<li>#12: 群操作权限检查，群成员信息获取检查</li>
+<li>#19: at 显示缺失 @ 字符</li>
+</ul>
+<h3 id="dependencies"><a class="header" href="#dependencies">Dependencies</a></h3>
+<ul>
+<li>walle-core: 0.6.0-a1 -&gt; 0.6.0</li>
+<li>ricq: 0.1.15 -&gt; 0.1.16</li>
+</ul>
+<h3 id="breaking-changes"><a class="header" href="#breaking-changes">Breaking Changes</a></h3>
+<ul>
+<li>forward 消息段被移除，直接发送 Vec&lt;node&gt; 即视为 forward 消息段（优先级低于普通其他消息段）</li>
+</ul>
+<h3 id="others"><a class="header" href="#others">Others</a></h3>
+<ul>
+<li>感谢 <a href="https://github.com/Itsusinn">Itsusinn</a> 对项目 ci 的优化 pr</li>
+</ul>
+<h2 id="020-a1"><a class="header" href="#020-a1">0.2.0-a1</a></h2>
+<h3 id="features"><a class="header" href="#features">Features</a></h3>
+<ul>
+<li>支持多 Bot 登录</li>
+</ul>
+<h3 id="dependencies-1"><a class="header" href="#dependencies-1">Dependencies</a></h3>
+<ul>
+<li>walle-core: 0.6.0-a1</li>
+<li>移除 qrcode 相关依赖</li>
+</ul>
+<h3 id="others-1"><a class="header" href="#others-1">Others</a></h3>
+<ul>
+<li>配置文件切换为 toml 格式</li>
+<li>优化编译后文件大小</li>
+</ul>
+<h2 id="014"><a class="header" href="#014">0.1.4</a></h2>
+<h3 id="features-1"><a class="header" href="#features-1">Features</a></h3>
+<ul>
+<li>添加 event.message.group_temp</li>
+<li>添加 event.notice.friend_poke</li>
+<li>添加 event.notice.group_name_update</li>
+<li>添加 event.request.join_group</li>
+<li>添加 event.request.group_invited</li>
+<li>添加 set_join_group 动作</li>
+<li>添加 get_join_group_requests 动作</li>
+<li>添加 set_group_invited 动作</li>
+<li>添加 get_group_inviteds 动作</li>
+</ul>
+<h3 id="dependencies-2"><a class="header" href="#dependencies-2">Dependencies</a></h3>
+<ul>
+<li>walle-core: 0.5.4</li>
+</ul>
+<h3 id="others-2"><a class="header" href="#others-2">Others</a></h3>
+<ul>
+<li>暂时移除 Onebot V11 支持</li>
+</ul>
+<h2 id="013"><a class="header" href="#013">0.1.3</a></h2>
+<h3 id="features-2"><a class="header" href="#features-2">Features</a></h3>
+<ul>
+<li>添加 event.request.new_friend</li>
+<li>添加 set_new_friend 动作</li>
+<li>添加 delete_friend 动作</li>
+<li>添加 get_new_friend_requests 动作</li>
+<li>添加 upload_file_fragmented 动作支持</li>
+<li>添加 get_file_fragmented 动作支持</li>
+<li>支持收发 Reply 消息段</li>
+<li>支持发送 forward 消息段</li>
+</ul>
+<h2 id="012"><a class="header" href="#012">0.1.2</a></h2>
+<h3 id="features-3"><a class="header" href="#features-3">Features</a></h3>
+<ul>
+<li>命令行二维码打印</li>
+<li>添加部分扩展字段</li>
+</ul>
+<h3 id="internal"><a class="header" href="#internal">Internal</a></h3>
+<ul>
+<li>ricq update to 0.1.8</li>
+<li>walle-core update to 0.5.0</li>
+</ul>
+<h2 id="011"><a class="header" href="#011">0.1.1</a></h2>
+<ul>
+<li>修复 v11 模式 url file 协议解析</li>
+<li>新增 log 文件，将会记录 WARN Level 以上的错误信息</li>
+</ul>
+<h2 id="010"><a class="header" href="#010">0.1.0</a></h2>
+<p>Nothing new</p>
+<h2 id="003"><a class="header" href="#003">0.0.3</a></h2>
+<ul>
+<li>支持图片消息发送</li>
+<li>Onebot v11 支持</li>
+</ul>
+<h2 id="002"><a class="header" href="#002">0.0.2</a></h2>
+<ul>
+<li>支持更多 action</li>
+<li>修复 websocket 连接断开问题</li>
+</ul>
+<h2 id="001"><a class="header" href="#001">0.0.1</a></h2>
+<ul>
+<li>第一个 pre release 版本</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="v11.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="v11.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>
